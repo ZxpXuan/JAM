@@ -11,5 +11,6 @@ public class Define {
     public static float t_max = 3f;
     public static float longPressA1 = 1f;
     public static float longPressA2 = 0.1f;
+    public static float knockDownDamage = 30f;//角色被击倒后，固定损失HP：HP_Fall_Cut
 
 }

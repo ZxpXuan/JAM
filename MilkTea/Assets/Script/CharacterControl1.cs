@@ -164,4 +164,9 @@ public class CharacterControl1 : MonoBehaviour {
         hp = hp - damage;
         teaWater.SetWaterPerc(hp);
     }
+
+    public void KnockDown()
+    {
+        ReceiveDamage(Define.knockDownDamage);
+    }
 }

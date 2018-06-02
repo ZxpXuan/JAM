@@ -6,6 +6,7 @@ public class Ball : MonoBehaviour {
     public GameObject groundWater;
     bool powerfulFlag = false;
     float conTime = 0;
+    float Bullet_Power = 0;
     // Use this for initialization
     void Start () {
         //print("Ball : MonoBehaviour----------------");
@@ -23,7 +24,7 @@ public class Ball : MonoBehaviour {
 
         GetComponent<Rigidbody2D>().gravityScale = 0.2f;
         Vector2 norForce = new Vector2(angle.x, angle.y).normalized;
-        float Bullet_Power = conTime / Define.t_max * 100 * Define.longPressA1 * Define.longPressA2;
+        Bullet_Power = conTime / Define.t_max * 100 * Define.longPressA1 * Define.longPressA2;
 
         GetComponent<Rigidbody2D>().AddForce(norForce * Bullet_Power, ForceMode2D.Impulse);
 
@@ -60,7 +61,17 @@ public class Ball : MonoBehaviour {
                     other.transform.GetComponent<CharacterControl1>().ReceiveDamage(Define.selfDamagePerAttack * Define.selfDamagePerAttackA2);
                 }
             }
-            
+            float h_ATKed = transform.position.y - botY;
+            float curHp = other.transform.GetComponent<CharacterControl1>().hp;
+            //判断角色受到攻击时是否会被击倒：
+            if (Bullet_Power * h_ATKed / (curHp / 100 * height) >= curHp)
+            {
+                other.transform.GetComponent<CharacterControl1>().KnockDown();
+            }
+
+
+
+
         }
         //if (other.transform.tag == "ground")
         //{
