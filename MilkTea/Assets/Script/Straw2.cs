@@ -13,15 +13,21 @@ public class Straw2 : Straw1
         {
             //transform.RotateAround( new Vector3(0.256f, 0.3863638f, 0.1416877f), 2f);
             //print();
-            transform.Rotate(new Vector3(0, 0, 1));
-            curAngle = curAngle - 1f;
+            if (curAngle < Define.strawMaxAngle)
+            {
+                transform.Rotate(new Vector3(0, 0, 1));
+                curAngle = curAngle - 1f;
+            }
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
             //transform.RotateAround( new Vector3(0.256f, 0.3863638f, 0.1416877f), 2f);
             //print();
-            transform.Rotate(new Vector3(0, 0, -1));
-            curAngle = curAngle - 1f;
+            if (curAngle > -Define.strawMaxAngle)
+            {
+                transform.Rotate(new Vector3(0, 0, -1));
+                curAngle = curAngle - 1f;
+            }
         }
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
         {
@@ -39,12 +45,12 @@ public class Straw2 : Straw1
                 GameObject b = Instantiate<GameObject>(ball) as GameObject;
                 b.transform.position = end.position;
 
-                if (conTime < 1f)
+                if (conTime < Time_Charge_Enter)//短按
                 {
-                    conTime = 1f;
+                    conTime = Define.selfDamagePerAttack * Define.selfDamagePerAttackA1;
                     b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, false);
                 }
-                else
+                else//长按
                 {
                     b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, true);
                 }

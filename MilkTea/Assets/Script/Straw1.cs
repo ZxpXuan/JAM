@@ -35,15 +35,21 @@ public class Straw1 : MonoBehaviour {
         {
             //transform.RotateAround( new Vector3(0.256f, 0.3863638f, 0.1416877f), 2f);
             //print();
-            transform.Rotate(new Vector3(0, 0, changeAnglePerFrame));
-            curAngle = curAngle + changeAnglePerFrame;
+            if (curAngle < Define.strawMaxAngle)
+            {
+                transform.Rotate(new Vector3(0, 0, changeAnglePerFrame));
+                curAngle = curAngle + changeAnglePerFrame;
+            }
         }
         if (Input.GetKey(KeyCode.S))
         {
             //transform.RotateAround( new Vector3(0.256f, 0.3863638f, 0.1416877f), 2f);
             //print();
-            transform.Rotate(new Vector3(0, 0, -changeAnglePerFrame));
-            curAngle = curAngle - changeAnglePerFrame;
+            if (curAngle > -Define.strawMaxAngle)
+            {
+                transform.Rotate(new Vector3(0, 0, -changeAnglePerFrame));
+                curAngle = curAngle - changeAnglePerFrame;
+            }
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
