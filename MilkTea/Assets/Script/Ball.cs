@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour {
     public GameObject groundWater;
-
+    bool powerfulFlag = false;
     // Use this for initialization
     void Start () {
         //print("Ball : MonoBehaviour----------------");

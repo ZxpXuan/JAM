@@ -43,17 +43,22 @@ public class Straw1 : MonoBehaviour {
         {
             beginTime = Time.time;
         }
+        if (Input.GetKey(KeyCode.J))
+        {
+            conTime = Time.time - beginTime;
+        }
         if (Input.GetKeyUp(KeyCode.J))
         {
             if (Time.time - attackTime > attackInterval)
             {
-                conTime = Time.time - beginTime;
+                //conTime = Time.time - beginTime;
                 GameObject b = Instantiate<GameObject>(ball) as GameObject;
                 b.transform.position = end.position;
 
                 if (conTime < 1f) conTime = 1f;
                 b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime);
                 parent.GetComponent<CharacterControl1>().ReceiveDamage(3f);
+                conTime = 0;
                 attackTime = Time.time;
             }
         }

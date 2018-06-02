@@ -75,6 +75,9 @@ public class CharacterControl1 : MonoBehaviour {
         }
 
         move = horizontal * MoveSpeed;
+
+        float hpScale = 1  - hp / 100f + 0.3f;
+        move = move * hpScale;
         //Debug.Log("Movespeed" + move);
         if (record == false)
         {
@@ -82,15 +85,14 @@ public class CharacterControl1 : MonoBehaviour {
             {
                 var vel = m_rigid.velocity;
                 vel.y = JumpForce;
-                MoveSpeed = 0;
+                //MoveSpeed = 0;
                 m_rigid.velocity = vel;
                 m_animator.SetBool("Jump", true);
                 m_animator.SetBool("Climb", false);
                 record = true;
             }
         }
-        else
-            MoveSpeed = 5;
+        
         var onGround = ground();
         m_rigid.velocity = new Vector2(move, m_rigid.velocity.y);
         //      if (onGround) {
