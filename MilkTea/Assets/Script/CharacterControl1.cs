@@ -67,6 +67,19 @@ public class CharacterControl1 : MonoBehaviour {
 
     public virtual void OperateUpdate()
     {
+        if (record == false)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                var vel = m_rigid.velocity;
+                vel.y = JumpForce;
+                //MoveSpeed = 0;
+                m_rigid.velocity = vel;
+                m_animator.SetBool("Jump", true);
+                m_animator.SetBool("Climb", false);
+                record = true;
+            }
+        }
         if (slip) return;
         
         if (Time.time - stillBeginTime < stillConTime) return;//僵直一秒
@@ -108,29 +121,11 @@ public class CharacterControl1 : MonoBehaviour {
 
        
         //Debug.Log("Movespeed" + move);
-        if (record == false)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                var vel = m_rigid.velocity;
-                vel.y = JumpForce;
-                //MoveSpeed = 0;
-                m_rigid.velocity = vel;
-                m_animator.SetBool("Jump", true);
-                m_animator.SetBool("Climb", false);
-                record = true;
-            }
-        }
+        
         
         var onGround = ground();
         m_rigid.velocity = new Vector2(move, m_rigid.velocity.y);
-        //      if (onGround) {
-        //	m_rigid.velocity = new Vector2 (move, m_rigid.velocity.y);
-        //} else {
-        //	if (Mathf.Abs(m_rigid.velocity.x) < MoveSpeed) {
-        //		m_rigid.AddForce (Vector2.right * move * 10);
-        //	}
-        //}
+        
 
         if (enemy.position.x > transform.position.x)
         {

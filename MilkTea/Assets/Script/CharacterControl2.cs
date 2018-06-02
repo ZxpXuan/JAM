@@ -10,6 +10,19 @@ public class CharacterControl2 : CharacterControl1
 
     public override void OperateUpdate()
     {
+        if (record == false)
+        {
+            if (Input.GetKeyDown(KeyCode.Keypad0))
+            {
+                var vel = m_rigid.velocity;
+                vel.y = JumpForce;
+                //MoveSpeed = 0;
+                m_rigid.velocity = vel;
+                m_animator.SetBool("Jump", true);
+                m_animator.SetBool("Climb", false);
+                record = true;
+            }
+        }
         if (slip) return;
         if (Time.time - stillBeginTime <stillConTime) return;//僵直一秒
         //horizontal = Input.GetAxis("Horizontal");
@@ -47,19 +60,7 @@ public class CharacterControl2 : CharacterControl1
 
 
         }
-        if (record == false)
-        {
-            if (Input.GetKeyDown(KeyCode.Keypad0))
-            {
-                var vel = m_rigid.velocity;
-                vel.y = JumpForce;
-                //MoveSpeed = 0;
-                m_rigid.velocity = vel;
-                m_animator.SetBool("Jump", true);
-                m_animator.SetBool("Climb", false);
-                record = true;
-            }
-        }
+        
         
         var onGround = ground();
         m_rigid.velocity = new Vector2(move, m_rigid.velocity.y);
