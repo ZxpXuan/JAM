@@ -52,6 +52,7 @@ public class Ball : MonoBehaviour {
             float height = enemy.GetComponent<Renderer>().bounds.size.y;
             float botY = enemyPos.y - height / 2;
             float perc = (transform.position.y - botY) / height;
+            float curHp = other.transform.GetComponent<CharacterControl1>().hp;
 
             if (perc > 0.95)
             {
@@ -63,15 +64,27 @@ public class Ball : MonoBehaviour {
                 if (powerfulFlag)//长按
                 {
                     other.transform.GetComponent<CharacterControl1>().stillBeginTime = Time.time;
-                    other.transform.GetComponent<CharacterControl1>().ReceiveDamage(conTime / Define.t_max * 100 * Define.longPressA1 * Define.longPressA3);
+
+                    float damagenum = conTime / Define.t_max * 100 * Define.longPressA1 * Define.longPressA3;
+
+                    if (damagenum >= curHp)
+                    {
+                        damagenum = curHp - 1;
+                    }
+                    other.transform.GetComponent<CharacterControl1>().ReceiveDamage(damagenum);
                 }
                 else//短按
                 {
-                    other.transform.GetComponent<CharacterControl1>().ReceiveDamage(Define.selfDamagePerAttack * Define.selfDamagePerAttackA2);
+                    float damagenum = Define.selfDamagePerAttack * Define.selfDamagePerAttackA2;
+                    if (damagenum >= curHp)
+                    {
+                        damagenum = curHp - 1;
+                    }
+                    other.transform.GetComponent<CharacterControl1>().ReceiveDamage(damagenum);
                 }
             }
             float h_ATKed = transform.position.y - botY;
-            float curHp = other.transform.GetComponent<CharacterControl1>().hp;
+            
             //判断角色受到攻击时是否会被击倒：
             if (Bullet_Power * h_ATKed / (curHp / 100 * height) >= curHp)
             {
