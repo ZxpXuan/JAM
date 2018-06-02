@@ -15,8 +15,8 @@ public class ChangeWater2 : MonoBehaviour
 			cc.Water = true;
 			if (!cc)
 				return;
-
-			cc.StopControl ();
+            cc.ReceiveDamage(5f);
+            cc.StopControl ();
 			if (cc.horizontal > 0)
 			{
 				StartCoroutine (Move(cc1, false));

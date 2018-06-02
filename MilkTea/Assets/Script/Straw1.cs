@@ -14,6 +14,8 @@ public class Straw1 : MonoBehaviour {
     float attackTime = 0;
     float attackInterval = 1;
 
+    public Transform parent;
+
 
 	// Use this for initialization
 	void Start () {
@@ -51,7 +53,7 @@ public class Straw1 : MonoBehaviour {
 
                 if (conTime < 1f) conTime = 1f;
                 b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime);
-
+                parent.GetComponent<CharacterControl1>().ReceiveDamage(3f);
                 attackTime = Time.time;
             }
         }

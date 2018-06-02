@@ -15,7 +15,7 @@ public class ChangeWater : MonoBehaviour
 			cc.Water = true;
 			if (!cc)
 				return;
-
+            cc.ReceiveDamage(5f);
 			cc.StopControl ();
 			if (cc.horizontal > 0)
 			{

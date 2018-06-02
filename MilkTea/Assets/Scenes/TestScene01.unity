@@ -449,6 +449,7 @@ MonoBehaviour:
   beginTime: 0
   conTime: 0
   curAngle: 0
+  parent: {fileID: 1954693739}
 --- !u!1 &694638760
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,6 +1152,7 @@ MonoBehaviour:
   beginTime: 0
   conTime: 0
   curAngle: 0
+  parent: {fileID: 815466137}
 --- !u!1 &1954693733
 GameObject:
   m_ObjectHideFlags: 0
