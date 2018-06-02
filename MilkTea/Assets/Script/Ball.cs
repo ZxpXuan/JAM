@@ -63,9 +63,9 @@ public class Ball : MonoBehaviour {
                 if (powerfulFlag)//长按
                 {
                     other.transform.GetComponent<CharacterControl1>().stillBeginTime = Time.time;
-                    other.transform.GetComponent<CharacterControl1>().ReceiveDamage(conTime / Define.t_max * 100 * Define.longPressA1);
+                    other.transform.GetComponent<CharacterControl1>().ReceiveDamage(conTime / Define.t_max * 100 * Define.longPressA1 * Define.longPressA3);
                 }
-                else
+                else//短按
                 {
                     other.transform.GetComponent<CharacterControl1>().ReceiveDamage(Define.selfDamagePerAttack * Define.selfDamagePerAttackA2);
                 }
@@ -82,11 +82,11 @@ public class Ball : MonoBehaviour {
 
 
         }
-        if (other.transform.tag == "ground")
-        {
-            GameObject g = Instantiate<GameObject>(groundWater) as GameObject;
-            g.transform.position = transform.position - new Vector3(0, 0.2f, 0);
-        }
+        //if (other.transform.tag == "ground")
+        //{
+        //    GameObject g = Instantiate<GameObject>(groundWater) as GameObject;
+        //    g.transform.position = transform.position - new Vector3(0, 0.2f, 0);
+        //}
 
         Destroy(gameObject);
     

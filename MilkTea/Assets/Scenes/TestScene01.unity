@@ -1496,7 +1496,7 @@ MonoBehaviour:
   m_rigid: {fileID: 0}
   horizontal: 0
   vertical: 0
-  JumpForce: 8
+  JumpForce: 6
   MoveSpeed: 5
   move: 0
   record: 0

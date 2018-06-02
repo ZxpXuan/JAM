@@ -72,12 +72,14 @@ public class Straw1 : MonoBehaviour {
                 {
                     conTime = Define.selfDamagePerAttack * Define.selfDamagePerAttackA1;
                     b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, false, transform);
+                    parent.GetComponent<CharacterControl1>().ReceiveDamage(conTime / Define.t_max * 100 * Define.longPressA1);
                 }
                 else//长按
                 {
                     b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, true, transform);
+                    parent.GetComponent<CharacterControl1>().ReceiveDamage(Define.selfDamagePerAttack);
                 }
-                parent.GetComponent<CharacterControl1>().ReceiveDamage(Define.selfDamagePerAttack);
+                
                 conTime = 0;
                 attackTime = Time.time;
             }

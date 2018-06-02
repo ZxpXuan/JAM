@@ -20,6 +20,11 @@ public class CharacterControl2 : CharacterControl1
                 m_rigid.velocity = vel;
                 m_animator.SetBool("Jump", true);
                 m_animator.SetBool("Climb", false);
+
+
+                m_rigid.gravityScale = beginGrivaty;
+                StartCoroutine(DelaySetGrivaty());
+
                 record = true;
             }
         }
@@ -96,6 +101,6 @@ public class CharacterControl2 : CharacterControl1
         m_animator.SetFloat("YSpeed", m_rigid.velocity.y);
 
     }
-   
+
 
 }

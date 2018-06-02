@@ -14,6 +14,7 @@ public class CharacterControl1 : MonoBehaviour {
 	public bool Water{ get; set;}
 	public bool slip{ get; set;}
     public bool WudiFlag { get; set; }
+    public bool dieFlag { get; set; }
     public float stillBeginTime;
     public float stillConTime;
     public float hp = 100f;
@@ -28,6 +29,10 @@ public class CharacterControl1 : MonoBehaviour {
     public Straw1 straw;
 
     public float T_unbeatable = 2f;
+
+    public float beginGrivaty = 0.7f;//起跳时的重力
+    public float changeGrivatyInterval = 1f;//重力改变的间隔
+    public float delayGrivaty = 2.0f;//改变后的重力
 
     public Animator m_animator;
 
@@ -65,11 +70,13 @@ public class CharacterControl1 : MonoBehaviour {
 	 public virtual void Update () {
 
         OperateUpdate();
-
+        
     }
 
     public virtual void OperateUpdate()
     {
+        if (dieFlag) return;
+
         if (record == false)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -80,6 +87,10 @@ public class CharacterControl1 : MonoBehaviour {
                 m_rigid.velocity = vel;
                 m_animator.SetBool("Jump", true);
                 m_animator.SetBool("Climb", false);
+
+                m_rigid.gravityScale = beginGrivaty;
+                StartCoroutine(DelaySetGrivaty());
+
                 record = true;
             }
         }
@@ -152,6 +163,21 @@ public class CharacterControl1 : MonoBehaviour {
             //Debug.Log ("movespeed:" + a);
         }
         m_animator.SetFloat("YSpeed", m_rigid.velocity.y);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Time.timeScale == 1) Time.timeScale = 0;
+            else Time.timeScale = 1;
+
+        }
+    }
+
+
+
+    public IEnumerator DelaySetGrivaty()
+    {
+        yield return new WaitForSeconds(changeGrivatyInterval);
+        m_rigid.gravityScale = delayGrivaty;
     }
 
 	public void StopControl(){
@@ -165,9 +191,18 @@ public class CharacterControl1 : MonoBehaviour {
     {
         if (WudiFlag) return;
         hp = hp - damage;
+        if (hp <= 0)
+        {
+            Die();
+        }
         teaWater.SetWaterPerc(hp);
         WudiFlag = true;
         StartCoroutine(DelayWudi());
+    }
+
+    void Die()
+    {
+        dieFlag = true;
     }
 
     IEnumerator DelayWudi()
