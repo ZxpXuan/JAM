@@ -11,6 +11,9 @@ public class Straw1 : MonoBehaviour {
     public float conTime;
     public float curAngle;
 
+    float attackTime = 0;
+    float attackInterval = 1;
+
 
 	// Use this for initialization
 	void Start () {
@@ -40,12 +43,17 @@ public class Straw1 : MonoBehaviour {
         }
         if (Input.GetKeyUp(KeyCode.J))
         {
-            conTime = Time.time - beginTime;
-            GameObject b = Instantiate<GameObject>(ball) as GameObject;
-            b.transform.position = end.position;
+            if (Time.time - attackTime > attackInterval)
+            {
+                conTime = Time.time - beginTime;
+                GameObject b = Instantiate<GameObject>(ball) as GameObject;
+                b.transform.position = end.position;
 
-            if (conTime < 1f) conTime = 1f;
-            b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime);
+                if (conTime < 1f) conTime = 1f;
+                b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime);
+
+                attackTime = Time.time;
+            }
         }
 
 

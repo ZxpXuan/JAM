@@ -89,8 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bf8fbe12d60d734a9cb262917b6a490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character1: {fileID: 0}
-  character2: {fileID: 0}
+  groundWater: {fileID: 1907048919570946, guid: f99806354b448184a998121f624c4573,
+    type: 2}
 --- !u!212 &212435822953921692
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Ball : MonoBehaviour {
-
+    public GameObject groundWater;
 
     // Use this for initialization
     void Start () {
@@ -35,7 +35,11 @@ public class Ball : MonoBehaviour {
         {
             other.transform.GetComponent<CharacterControl1>().ReceiveDamage(10f);
         }
-        
+        if (other.transform.tag == "ground")
+        {
+            GameObject g = Instantiate<GameObject>(groundWater) as GameObject;
+            g.transform.position = transform.position - new Vector3(0,0.2f,0);
+        }
 
         Destroy(gameObject);
     
