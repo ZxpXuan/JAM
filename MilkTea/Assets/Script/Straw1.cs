@@ -11,8 +11,8 @@ public class Straw1 : MonoBehaviour {
     public float conTime;
     public float curAngle;
 
-    float attackTime = 0;
-    float attackInterval = 1;
+    public float attackTime = 0;
+    public float attackInterval = 1;
 
     public Transform parent;
 
@@ -55,8 +55,15 @@ public class Straw1 : MonoBehaviour {
                 GameObject b = Instantiate<GameObject>(ball) as GameObject;
                 b.transform.position = end.position;
 
-                if (conTime < 1f) conTime = 1f;
-                b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime);
+                if (conTime < 1f)
+                {
+                    conTime = 1f;
+                    b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, false);
+                }
+                else
+                {
+                    b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, true);
+                }
                 parent.GetComponent<CharacterControl1>().ReceiveDamage(3f);
                 conTime = 0;
                 attackTime = Time.time;

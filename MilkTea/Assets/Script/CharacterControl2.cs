@@ -8,8 +8,9 @@ public class CharacterControl2 : CharacterControl1
 
     
 
-    public override void Update()
+    public override void OperateUpdate()
     {
+        if (Time.time - stillBeginTime < 1f) return;//僵直一秒
         //horizontal = Input.GetAxis("Horizontal");
         if (Input.GetKey(KeyCode.LeftArrow))
         {

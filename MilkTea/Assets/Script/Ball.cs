@@ -16,7 +16,7 @@ public class Ball : MonoBehaviour {
 	void Update () {
         //GetComponent<Rigidbody2D>().AddForce(new Vector2(1000f, 1f));
 	}
-    public void Launch(Vector3 angle, float contime)
+    public void Launch(Vector3 angle, float contime, bool flag)
     {
 
         GetComponent<Rigidbody2D>().gravityScale = 0.2f;
@@ -25,6 +25,7 @@ public class Ball : MonoBehaviour {
         GetComponent<Rigidbody2D>().AddForce(norForce * contime * 5, ForceMode2D.Impulse);
 
         Destroy(gameObject ,4f);
+        powerfulFlag = flag;
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -42,9 +43,14 @@ public class Ball : MonoBehaviour {
             if (perc > 0.95)
             {
                 other.transform.GetComponent<CharacterControl1>().ReceiveDamage(-5f);
+                
             }
             else
             {
+                if (powerfulFlag)
+                {
+                    other.transform.GetComponent<CharacterControl1>().stillBeginTime = Time.time;
+                }
                 other.transform.GetComponent<CharacterControl1>().ReceiveDamage(10f);
             }
             

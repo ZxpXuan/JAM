@@ -27,14 +27,31 @@ public class Straw2 : Straw1
         {
             beginTime = Time.time;
         }
-        if (Input.GetKeyUp(KeyCode.KeypadEnter))
+        if (Input.GetKey(KeyCode.KeypadEnter))
         {
             conTime = Time.time - beginTime;
-            GameObject b = Instantiate<GameObject>(ball) as GameObject;
-            b.transform.position = end.position;
+        }
+        if (Input.GetKeyUp(KeyCode.KeypadEnter))
+        {
+            if (Time.time - attackTime > attackInterval)
+            {
+                //conTime = Time.time - beginTime;
+                GameObject b = Instantiate<GameObject>(ball) as GameObject;
+                b.transform.position = end.position;
 
-            if (conTime < 1f) conTime = 1f;
-            b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime);
+                if (conTime < 1f)
+                {
+                    conTime = 1f;
+                    b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, false);
+                }
+                else
+                {
+                    b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, true);
+                }
+                parent.GetComponent<CharacterControl1>().ReceiveDamage(3f);
+                conTime = 0;
+                attackTime = Time.time;
+            }
         }
 
     }

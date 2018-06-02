@@ -13,6 +13,7 @@ public class CharacterControl1 : MonoBehaviour {
     public bool record = false;//是否在空中
 	public bool Water{ get; set;}
 	public bool slip{ get; set;}
+    public float stillBeginTime;
     public float hp = 100f;
 
     public Transform enemy;
@@ -57,9 +58,14 @@ public class CharacterControl1 : MonoBehaviour {
 
     }
 
-    public void OperateUpdate()
+    public virtual void OperateUpdate()
     {
         if (slip) return;
+        if (transform.name == "character2")
+        {
+            print("OperateUpdate--------"+ (Time.time - stillBeginTime < 1f));
+        }
+        if (Time.time - stillBeginTime < 1f) return;//僵直一秒
         //horizontal = Input.GetAxis("Horizontal");
         if (Input.GetKey(KeyCode.A))
         {
