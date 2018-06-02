@@ -110,10 +110,10 @@ public class CharacterControl1 : MonoBehaviour {
 
 	}
 	public void StopControl(){
-		this.enabled = false;
+		//this.enabled = false;
 	}
 	public void CanControl(){
-		this.enabled = true;
+		//this.enabled = true;
 	}
 
     public void ReceiveDamage(float damage)
