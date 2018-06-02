@@ -14,5 +14,5 @@ public class Define {
     public static float knockDownDamage = 30f;//角色被击倒后，固定损失HP：HP_Fall_Cut
 
 
-    public static float strawMaxAngle = 45f;
+    public static float strawMaxAngle = 45f;//吸管最大角度
 }
