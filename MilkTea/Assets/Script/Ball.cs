@@ -51,7 +51,7 @@ public class Ball : MonoBehaviour {
                 {
                     other.transform.GetComponent<CharacterControl1>().stillBeginTime = Time.time;
                 }
-                other.transform.GetComponent<CharacterControl1>().ReceiveDamage(10f);
+                other.transform.GetComponent<CharacterControl1>().ReceiveDamage(Define.selfDamagePerAttack * Define.selfDamagePerAttackA2);
             }
             
         }

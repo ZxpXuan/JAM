@@ -16,7 +16,9 @@ public class Straw1 : MonoBehaviour {
 
     public Transform parent;
 
-    public float attack2MeDagame = 1;
+    
+
+    public float changeAnglePerFrame = 1f;
 
 
 	// Use this for initialization
@@ -31,15 +33,15 @@ public class Straw1 : MonoBehaviour {
         {
             //transform.RotateAround( new Vector3(0.256f, 0.3863638f, 0.1416877f), 2f);
             //print();
-            transform.Rotate(new Vector3(0, 0, 1));
-            curAngle = curAngle - 1f;
+            transform.Rotate(new Vector3(0, 0, changeAnglePerFrame));
+            curAngle = curAngle + changeAnglePerFrame;
         }
         if (Input.GetKey(KeyCode.S))
         {
             //transform.RotateAround( new Vector3(0.256f, 0.3863638f, 0.1416877f), 2f);
             //print();
-            transform.Rotate(new Vector3(0, 0, -1));
-            curAngle = curAngle - 1f;
+            transform.Rotate(new Vector3(0, 0, -changeAnglePerFrame));
+            curAngle = curAngle - changeAnglePerFrame;
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
@@ -57,12 +59,12 @@ public class Straw1 : MonoBehaviour {
                 GameObject b = Instantiate<GameObject>(ball) as GameObject;
                 b.transform.position = end.position;
 
-                if (conTime < 1f)
+                if (conTime < 1f)//短按
                 {
-                    conTime = 1f;
+                    conTime = Define.selfDamagePerAttack * Define.selfDamagePerAttackA1;
                     b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, false);
                 }
-                else
+                else//长按
                 {
                     b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, true);
                 }

@@ -22,6 +22,8 @@ public class CharacterControl1 : MonoBehaviour {
 
     public float Recover_Ratio = 1;
 
+    public float walkDamagePerSecond = 5;
+
     public Animator m_animator;
 
 	void Start () {
@@ -64,12 +66,9 @@ public class CharacterControl1 : MonoBehaviour {
     public virtual void OperateUpdate()
     {
         if (slip) return;
-        //if (transform.name == "character2")
-        //{
-        //    print("OperateUpdate--------"+ (Time.time - stillBeginTime < stillConTime));
-        //}
-        if (Time.time - stillBeginTime < 1f) return;//僵直一秒
-        //horizontal = Input.GetAxis("Horizontal");
+        
+        if (Time.time - stillBeginTime < stillConTime) return;//僵直一秒
+       
         if (Input.GetKey(KeyCode.A))
         {
             horizontal = -1f;
@@ -84,6 +83,11 @@ public class CharacterControl1 : MonoBehaviour {
         }
 
         move = horizontal * MoveSpeed;
+
+        if (move != 0)
+        {
+            ReceiveDamage(walkDamagePerSecond * Time.deltaTime);
+        }
 
         float hpScale = 1  - hp / 100f + 0.3f;
         move = move * hpScale;

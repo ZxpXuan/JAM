@@ -27,22 +27,26 @@ public class CharacterControl2 : CharacterControl1
         }
 
         move = horizontal * MoveSpeed;
-        //Debug.Log("Movespeed" + move);
+
+        if (move != 0)
+        {
+            ReceiveDamage(walkDamagePerSecond * Time.deltaTime);
+        }
+
         if (record == false)
         {
             if (Input.GetKeyDown(KeyCode.Keypad0))
             {
                 var vel = m_rigid.velocity;
                 vel.y = JumpForce;
-                MoveSpeed = 0;
+                //MoveSpeed = 0;
                 m_rigid.velocity = vel;
                 m_animator.SetBool("Jump", true);
                 m_animator.SetBool("Climb", false);
                 record = true;
             }
         }
-        else
-            MoveSpeed = 5;
+        
         var onGround = ground();
         m_rigid.velocity = new Vector2(move, m_rigid.velocity.y);
         //      if (onGround) {
