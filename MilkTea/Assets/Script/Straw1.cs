@@ -16,6 +16,8 @@ public class Straw1 : MonoBehaviour {
 
     public Transform parent;
 
+    public float attack2MeDagame = 1;
+
 
 	// Use this for initialization
 	void Start () {
@@ -64,7 +66,7 @@ public class Straw1 : MonoBehaviour {
                 {
                     b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, true);
                 }
-                parent.GetComponent<CharacterControl1>().ReceiveDamage(3f);
+                parent.GetComponent<CharacterControl1>().ReceiveDamage(Define.selfDamagePerAttack);
                 conTime = 0;
                 attackTime = Time.time;
             }

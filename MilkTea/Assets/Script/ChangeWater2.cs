@@ -4,60 +4,79 @@ using UnityEngine;
 
 public class ChangeWater2 : MonoBehaviour
 {
-	void OnTriggerEnter2D(Collider2D collider)
-	{
-		if (collider.tag == "character2")
-		{
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.tag == "character2")
+        {
 
-			var cc = collider.GetComponent<CharacterControl1> ();
-			var cc1 = collider.GetComponent<Rigidbody2D> ();
-			cc.slip = true;
-			cc.Water = true;
-			if (!cc)
-				return;
-            cc.ReceiveDamage(5f);
-            cc.StopControl ();
-			if (cc.horizontal > 0)
-			{
-				StartCoroutine (Move(cc1, false));
-			} 
+            var cc = collider.GetComponent<CharacterControl2>();
+            var cc1 = collider.GetComponent<Rigidbody2D>();
+            cc.slip = true;
+            cc.Water = true;
+            if (!cc)
+                return;
 
-			if(cc.horizontal < 0)
-			{
-				StartCoroutine (Move(cc1, true));
-			}
+            if (cc.horizontal > 0)
+            {
+                StartCoroutine(Move(cc1, false));
 
-			if (cc.horizontal == 0)
-			{
-				cc.slip = false;
-			}
-		}
-	}
+            }
 
-	void OnTriggerExit2D(Collider2D collider)
-	{
-		if (collider.tag == "character2")
-		{
-			var cc = collider.GetComponent<CharacterControl1> ();
-			if (!cc)
-				return;
+            if (cc.horizontal < 0)
+            {
+                StartCoroutine(Move(cc1, true));
+            }
 
-			StopAllCoroutines ();
-			cc.CanControl ();
-			cc.Water = false;
-			cc.slip = false;
-		}
-	}
+            if (cc.horizontal == 0)
+            {
+                StartCoroutine(WaitForMove(cc1));
+            }
+        }
+    }
 
-	IEnumerator Move(Rigidbody2D body, bool toLeft)
-	{
-		while (true) {
-			if (toLeft)
-				body.AddForce (Vector2.left*40);
-			else
-				body.AddForce (Vector2.right*40);
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.tag == "character2")
+        {
+            var cc = collider.GetComponent<CharacterControl2>();
+            if (!cc)
+                return;
 
-			yield return null;
-		}
-	}
+            StopAllCoroutines();
+            cc.CanControl();
+            cc.Water = false;
+            cc.slip = false;
+        }
+    }
+
+    IEnumerator WaitForMove(Rigidbody2D body)
+    {
+        var wait = new WaitForFixedUpdate();
+        while (body.velocity.x == 0)
+        {
+            yield return wait;
+        }
+
+        if (body.velocity.x > 0)
+            StartCoroutine(Move(body, false));
+        else
+            StartCoroutine(Move(body, true));
+    }
+
+    IEnumerator Move(Rigidbody2D body, bool toLeft)
+    {
+        while (true)
+        {
+            if (toLeft)
+            {
+                body.AddForce(Vector2.left * 40);
+            }
+            else
+            {
+                body.AddForce(Vector2.right * 40);
+            }
+
+            yield return null;
+        }
+    }
 }

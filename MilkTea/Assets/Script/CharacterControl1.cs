@@ -20,6 +20,8 @@ public class CharacterControl1 : MonoBehaviour {
     public Transform enemy;
     public TeaWater teaWater;
 
+    public float Recover_Ratio = 1;
+
     public Animator m_animator;
 
 	void Start () {

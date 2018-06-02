@@ -42,7 +42,7 @@ public class Ball : MonoBehaviour {
 
             if (perc > 0.95)
             {
-                other.transform.GetComponent<CharacterControl1>().ReceiveDamage(-5f);
+                other.transform.GetComponent<CharacterControl1>().ReceiveDamage(other.transform.GetComponent<CharacterControl1>().Recover_Ratio * Define.selfDamagePerAttack);
                 
             }
             else
@@ -58,7 +58,7 @@ public class Ball : MonoBehaviour {
         //if (other.transform.tag == "ground")
         //{
         //    GameObject g = Instantiate<GameObject>(groundWater) as GameObject;
-        //    g.transform.position = transform.position - new Vector3(0,0.2f,0);
+        //    g.transform.position = transform.position - new Vector3(0, 0.2f, 0);
         //}
 
         Destroy(gameObject);
