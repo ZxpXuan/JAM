@@ -134,7 +134,7 @@ public class CharacterControl1 : MonoBehaviour {
 
     public void ReceiveDamage(float damage)
     {
-        //print("ReceiveDamage--------1111---"+transform.name+damage);
+        
         hp = hp - damage;
         teaWater.SetWaterPerc(hp);
     }

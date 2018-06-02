@@ -33,7 +33,21 @@ public class Ball : MonoBehaviour {
         //other.transform.GetComponent<CharacterControl1>().ReceiveDamage(10f);
         if (other.transform.GetComponent<CharacterControl1>() != null)
         {
-            other.transform.GetComponent<CharacterControl1>().ReceiveDamage(10f);
+            Transform enemy = other.transform;
+            Vector3 enemyPos = enemy.position;
+            float height = enemy.GetComponent<Renderer>().bounds.size.y;
+            float botY = enemyPos.y - height / 2;
+            float perc = (transform.position.y - botY) / height;
+
+            if (perc > 0.95)
+            {
+                other.transform.GetComponent<CharacterControl1>().ReceiveDamage(-5f);
+            }
+            else
+            {
+                other.transform.GetComponent<CharacterControl1>().ReceiveDamage(10f);
+            }
+            
         }
         if (other.transform.tag == "ground")
         {
