@@ -13,6 +13,7 @@ public class CharacterControl1 : MonoBehaviour {
     public bool record = false;//是否在空中
 	public bool Water{ get; set;}
 	public bool slip{ get; set;}
+    public bool WudiFlag { get; set; }
     public float stillBeginTime;
     public float stillConTime;
     public float hp = 100f;
@@ -160,9 +161,17 @@ public class CharacterControl1 : MonoBehaviour {
 
     public void ReceiveDamage(float damage)
     {
-        
+        if (WudiFlag) return;
         hp = hp - damage;
         teaWater.SetWaterPerc(hp);
+        WudiFlag = true;
+        StartCoroutine("DelayWudi");
+    }
+
+    IEnumerable DelayWudi()
+    {
+        yield return new WaitForSeconds(2f);
+        WudiFlag = false;
     }
 
     public void KnockDown()
