@@ -536,6 +536,8 @@ MonoBehaviour:
   beginTime: 0
   conTime: 0
   curAngle: 0
+  attackTime: 0
+  attackInterval: 1
   parent: {fileID: 1954693739}
 --- !u!1 &694638760
 GameObject:
@@ -781,6 +783,8 @@ MonoBehaviour:
   MoveSpeed: 5
   move: 0
   record: 0
+  stillBeginTime: 0
+  stillConTime: 1
   hp: 100
   enemy: {fileID: 1954693739}
   teaWater: {fileID: 308474828}
@@ -1310,6 +1314,8 @@ MonoBehaviour:
   beginTime: 0
   conTime: 0
   curAngle: 0
+  attackTime: 0
+  attackInterval: 1
   parent: {fileID: 815466137}
 --- !u!1 &1954693733
 GameObject:
@@ -1411,6 +1417,8 @@ MonoBehaviour:
   MoveSpeed: 5
   move: 0
   record: 0
+  stillBeginTime: 0
+  stillConTime: 1
   hp: 100
   enemy: {fileID: 815466137}
   teaWater: {fileID: 694638763}

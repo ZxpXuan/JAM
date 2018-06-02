@@ -55,11 +55,11 @@ public class Ball : MonoBehaviour {
             }
             
         }
-        if (other.transform.tag == "ground")
-        {
-            GameObject g = Instantiate<GameObject>(groundWater) as GameObject;
-            g.transform.position = transform.position - new Vector3(0,0.2f,0);
-        }
+        //if (other.transform.tag == "ground")
+        //{
+        //    GameObject g = Instantiate<GameObject>(groundWater) as GameObject;
+        //    g.transform.position = transform.position - new Vector3(0,0.2f,0);
+        //}
 
         Destroy(gameObject);
     
