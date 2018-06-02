@@ -11,6 +11,8 @@ public class CharacterControl1 : MonoBehaviour {
     public float move1 = 0;
     public float move2 = 0;
     public bool record = false;
+	public bool Water{ get; set;}
+	public bool slip{ get; set;}
     public float hp = 100f;
 
     public Transform enemy;

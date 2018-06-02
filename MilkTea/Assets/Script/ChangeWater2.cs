@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeWater : MonoBehaviour
+public class ChangeWater2 : MonoBehaviour
 {
 	void OnTriggerEnter2D(Collider2D collider)
 	{
-		if (collider.tag == "character1")
+		if (collider.tag == "character2")
 		{
-			
+
 			var cc = collider.GetComponent<CharacterControl1> ();
 			var cc1 = collider.GetComponent<Rigidbody2D> ();
 			cc.slip = true;
@@ -36,7 +36,7 @@ public class ChangeWater : MonoBehaviour
 
 	void OnTriggerExit2D(Collider2D collider)
 	{
-		if (collider.tag == "character1")
+		if (collider.tag == "character2")
 		{
 			var cc = collider.GetComponent<CharacterControl1> ();
 			if (!cc)
