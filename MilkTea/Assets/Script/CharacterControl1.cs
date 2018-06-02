@@ -27,6 +27,8 @@ public class CharacterControl1 : MonoBehaviour {
     public float Charging_Speed_Cut = 1f;//蓄力期间，角色移动速度下降
     public Straw1 straw;
 
+    public float T_unbeatable = 2f;
+
     public Animator m_animator;
 
 	void Start () {
@@ -165,12 +167,12 @@ public class CharacterControl1 : MonoBehaviour {
         hp = hp - damage;
         teaWater.SetWaterPerc(hp);
         WudiFlag = true;
-        StartCoroutine("DelayWudi");
+        StartCoroutine(DelayWudi());
     }
 
-    IEnumerable DelayWudi()
+    IEnumerator DelayWudi()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(T_unbeatable);
         WudiFlag = false;
     }
 

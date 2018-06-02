@@ -15,8 +15,8 @@ public class Straw2 : Straw1
             //print();
             if (curAngle < Define.strawMaxAngle)
             {
-                transform.Rotate(new Vector3(0, 0, 1));
-                curAngle = curAngle - 1f;
+                transform.Rotate(new Vector3(0, 0, changeAnglePerFrame));
+                curAngle = curAngle + changeAnglePerFrame;
             }
         }
         if (Input.GetKey(KeyCode.DownArrow))
@@ -25,8 +25,8 @@ public class Straw2 : Straw1
             //print();
             if (curAngle > -Define.strawMaxAngle)
             {
-                transform.Rotate(new Vector3(0, 0, -1));
-                curAngle = curAngle - 1f;
+                transform.Rotate(new Vector3(0, 0, -changeAnglePerFrame));
+                curAngle = curAngle - changeAnglePerFrame;
             }
         }
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
@@ -48,11 +48,11 @@ public class Straw2 : Straw1
                 if (conTime < Time_Charge_Enter)//短按
                 {
                     conTime = Define.selfDamagePerAttack * Define.selfDamagePerAttackA1;
-                    b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, false);
+                    b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, false ,transform);
                 }
                 else//长按
                 {
-                    b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, true);
+                    b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, true, transform);
                 }
                 parent.GetComponent<CharacterControl1>().ReceiveDamage(Define.selfDamagePerAttack);
                 conTime = 0;

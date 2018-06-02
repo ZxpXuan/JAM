@@ -755,7 +755,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -868,6 +868,7 @@ MonoBehaviour:
   walkDamagePerSecond: 5
   Charging_Speed_Cut: 1
   straw: {fileID: 1906436507}
+  T_unbeatable: 1
   m_animator: {fileID: 0}
 --- !u!1 &816923854
 GameObject:
@@ -1455,7 +1456,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -1508,6 +1509,7 @@ MonoBehaviour:
   walkDamagePerSecond: 5
   Charging_Speed_Cut: 1
   straw: {fileID: 556906611}
+  T_unbeatable: 1
   m_animator: {fileID: 0}
 --- !u!212 &1954693738
 SpriteRenderer:

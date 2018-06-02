@@ -7,6 +7,8 @@ public class Ball : MonoBehaviour {
     bool powerfulFlag = false;
     float conTime = 0;
     float Bullet_Power = 0;
+
+    Transform parent;
     // Use this for initialization
     void Start () {
         //print("Ball : MonoBehaviour----------------");
@@ -18,7 +20,7 @@ public class Ball : MonoBehaviour {
 	void Update () {
         //GetComponent<Rigidbody2D>().AddForce(new Vector2(1000f, 1f));
 	}
-    public void Launch(Vector3 angle, float contime, bool flag)
+    public void Launch(Vector3 angle, float contime, bool flag, Transform p)
     {
         conTime = contime;
 
@@ -30,12 +32,19 @@ public class Ball : MonoBehaviour {
 
         Destroy(gameObject ,4f);
         powerfulFlag = flag;
+        parent = p;
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         //print("OnCollisionEnter2D-------------"+transform.position.y);
         //other.transform.GetComponent<CharacterControl1>().ReceiveDamage(10f);
+
+        if (parent == other.transform)
+        {
+            Destroy(gameObject);
+            return;
+        }
         if (other.transform.GetComponent<CharacterControl1>() != null)
         {
             Transform enemy = other.transform;

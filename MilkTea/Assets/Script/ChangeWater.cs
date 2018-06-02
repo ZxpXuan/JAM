@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class ChangeWater : MonoBehaviour
 {
+    public float conTime = 2f;
+    void Start()
+    {
+        Destroy(gameObject, conTime);
+    }
     void OnTriggerEnter2D(Collider2D collider)
     {
+        
+
         if (collider.tag == "character1")
         {
 
