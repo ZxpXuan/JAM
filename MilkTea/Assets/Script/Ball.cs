@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour {
     public GameObject groundWater;
     bool powerfulFlag = false;
+    float conTime = 0;
     // Use this for initialization
     void Start () {
         //print("Ball : MonoBehaviour----------------");
@@ -18,11 +19,13 @@ public class Ball : MonoBehaviour {
 	}
     public void Launch(Vector3 angle, float contime, bool flag)
     {
+        conTime = contime;
 
         GetComponent<Rigidbody2D>().gravityScale = 0.2f;
         Vector2 norForce = new Vector2(angle.x, angle.y).normalized;
+        float Bullet_Power = conTime / Define.t_max * 100 * Define.longPressA1 * Define.longPressA2;
 
-        GetComponent<Rigidbody2D>().AddForce(norForce * contime * 5, ForceMode2D.Impulse);
+        GetComponent<Rigidbody2D>().AddForce(norForce * Bullet_Power, ForceMode2D.Impulse);
 
         Destroy(gameObject ,4f);
         powerfulFlag = flag;
@@ -47,11 +50,15 @@ public class Ball : MonoBehaviour {
             }
             else
             {
-                if (powerfulFlag)
+                if (powerfulFlag)//长按
                 {
                     other.transform.GetComponent<CharacterControl1>().stillBeginTime = Time.time;
+                    other.transform.GetComponent<CharacterControl1>().ReceiveDamage(conTime / Define.t_max * 100 * Define.longPressA1);
                 }
-                other.transform.GetComponent<CharacterControl1>().ReceiveDamage(Define.selfDamagePerAttack * Define.selfDamagePerAttackA2);
+                else
+                {
+                    other.transform.GetComponent<CharacterControl1>().ReceiveDamage(Define.selfDamagePerAttack * Define.selfDamagePerAttackA2);
+                }
             }
             
         }

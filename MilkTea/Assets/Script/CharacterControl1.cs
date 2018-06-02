@@ -23,6 +23,8 @@ public class CharacterControl1 : MonoBehaviour {
     public float Recover_Ratio = 1;
 
     public float walkDamagePerSecond = 5;
+    public float Charging_Speed_Cut = 1f;//蓄力期间，角色移动速度下降
+    public Straw1 straw;
 
     public Animator m_animator;
 
@@ -87,10 +89,24 @@ public class CharacterControl1 : MonoBehaviour {
         if (move != 0)
         {
             ReceiveDamage(walkDamagePerSecond * Time.deltaTime);
+            float hpScale = 1 - hp / 100f + 0.3f;
+            move = move * hpScale;
+            if (straw.conTime > 0)
+            {
+                if (move > 0)
+                {
+                    move = move - Charging_Speed_Cut;
+                }
+                else
+                {
+                    move = move + Charging_Speed_Cut;
+                }
+            }
+            
+            
         }
 
-        float hpScale = 1  - hp / 100f + 0.3f;
-        move = move * hpScale;
+       
         //Debug.Log("Movespeed" + move);
         if (record == false)
         {

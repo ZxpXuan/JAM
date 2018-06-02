@@ -10,6 +10,8 @@ public class Straw1 : MonoBehaviour {
     public float beginTime;
     public float conTime;
     public float curAngle;
+    //public static float t_max = 3f;
+    public float Time_Charge_Enter = 1;//当按下J的时长达到：Time_Charge_Enter后，才能进入蓄力状态
 
     public float attackTime = 0;
     public float attackInterval = 1;
@@ -50,6 +52,7 @@ public class Straw1 : MonoBehaviour {
         if (Input.GetKey(KeyCode.J))
         {
             conTime = Time.time - beginTime;
+            if (conTime > Define.t_max) conTime = Define.t_max;
         }
         if (Input.GetKeyUp(KeyCode.J))
         {
@@ -59,7 +62,7 @@ public class Straw1 : MonoBehaviour {
                 GameObject b = Instantiate<GameObject>(ball) as GameObject;
                 b.transform.position = end.position;
 
-                if (conTime < 1f)//短按
+                if (conTime < Time_Charge_Enter)//短按
                 {
                     conTime = Define.selfDamagePerAttack * Define.selfDamagePerAttackA1;
                     b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, false);

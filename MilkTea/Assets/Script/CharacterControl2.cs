@@ -28,11 +28,25 @@ public class CharacterControl2 : CharacterControl1
 
         move = horizontal * MoveSpeed;
 
-        if (move != 0)
+        if(move != 0)
         {
             ReceiveDamage(walkDamagePerSecond * Time.deltaTime);
-        }
+            float hpScale = 1 - hp / 100f + 0.3f;
+            move = move * hpScale;
+            if (straw.conTime > 0)
+            {
+                if (move > 0)
+                {
+                    move = move - Charging_Speed_Cut;
+                }
+                else
+                {
+                    move = move + Charging_Speed_Cut;
+                }
+            }
 
+
+        }
         if (record == false)
         {
             if (Input.GetKeyDown(KeyCode.Keypad0))
