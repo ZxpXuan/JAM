@@ -15,7 +15,7 @@ public class Straw1 : MonoBehaviour {
 
     public float attackTime = 0;
     public float attackInterval = 1;
-
+    public Animator m_animator;
     public Transform parent;
 
 
@@ -27,9 +27,9 @@ public class Straw1 : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
-		
-	}
+        m_animator = GetComponent<Animator>();
+
+    }
 	
 	// Update is called once per frame
 	virtual public void Update () {
@@ -55,6 +55,7 @@ public class Straw1 : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
+          //  m_animator.SetBool("Charge1", true);
             beginTime = Time.time;
         }
         if (Input.GetKey(KeyCode.J))
@@ -64,22 +65,23 @@ public class Straw1 : MonoBehaviour {
         }
         if (Input.GetKeyUp(KeyCode.J))
         {
+            //m_animator.SetBool("Charge1", false);
             if (Time.time - attackTime > attackInterval)
             {
                 //conTime = Time.time - beginTime;
                 GameObject b = Instantiate<GameObject>(ball) as GameObject;
                 b.transform.position = end.position;
-
+                
                 if (conTime < Time_Charge_Enter || parent.GetComponent<CharacterControl1>().hp == 1)//短按
                 {
                     conTime = Define.selfDamagePerAttack * Define.selfDamagePerAttackA1;
                     b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, false, transform);
-                    parent.GetComponent<CharacterControl1>().ReceiveDamage(conTime / Define.t_max * 100 * Define.longPressA1);
+                    parent.GetComponent<CharacterControl1>().ReceiveDamage(Define.selfDamagePerAttack);
                 }
                 else//长按
                 {
                     b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, true, transform);
-                    parent.GetComponent<CharacterControl1>().ReceiveDamage(Define.selfDamagePerAttack);
+                    parent.GetComponent<CharacterControl1>().ReceiveDamage(conTime / Define.t_max * 100 * Define.longPressA1);
                 }
                 
                 conTime = 0;

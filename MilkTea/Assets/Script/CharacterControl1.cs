@@ -35,33 +35,36 @@ public class CharacterControl1 : MonoBehaviour {
     public float delayGrivaty = 2.0f;//改变后的重力
 
     public Animator m_animator;
+    [SerializeField]
+    public GameObject Deadbackground1;//死亡背景
 
-	void Start () {
+    void Start () {
 		m_rigid = GetComponent<Rigidbody2D>();
 		m_animator = GetComponent<Animator>();
 		Physics2D.queriesStartInColliders = false;//防止自己的ray触碰自己
+        Deadbackground1.SetActive(false);
 
-	}
+    }
     public bool ground (){
-		var hits = Physics2D.RaycastAll (transform.position, Vector2.down, 1.1f);
+		var hits = Physics2D.RaycastAll (transform.position, Vector2.down, 2.1f);
 
 		foreach (var hit in hits) {
 			if (hit.transform != transform) {
 				//Debug.DrawRay (transform.position, Vector3.down * 0.62f, Color.red);
 				record = false;
-				//Debug.Log ("Ground " + hit.collider.name);
-				m_animator.SetBool ("Jump", false);
+                //Debug.Log ("Ground " + hit.collider.name);
+                if (m_rigid.gravityScale == delayGrivaty)
+                {
+                    m_animator.SetBool("Jump", false);
+                }
+				
 				//m_animator.SetBool ("ground", true);
 				return true; 
 			}
 		}
 
-		//Debug.DrawRay (transform.position, Vector3.down * 0.8f, Color.red);
-		m_animator.SetBool ("Jump", true);
-		m_animator.SetBool ("Climb", false);
-		//Debug.Log ("Ground");
 		record = true;
-		//return false;
+
 
 		return false; 
 	}
@@ -77,22 +80,34 @@ public class CharacterControl1 : MonoBehaviour {
     {
         if (dieFlag) return;
 
+        
         if (record == false)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                
+
                 var vel = m_rigid.velocity;
                 vel.y = JumpForce;
                 //MoveSpeed = 0;
                 m_rigid.velocity = vel;
                 m_animator.SetBool("Jump", true);
-                m_animator.SetBool("Climb", false);
+                //m_animator.SetBool("Climb", false);
 
                 m_rigid.gravityScale = beginGrivaty;
                 StartCoroutine(DelaySetGrivaty());
 
                 record = true;
             }
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            m_animator.SetBool("Charge1", true);
+
+        }
+        if (Input.GetKeyUp(KeyCode.J))
+        {
+            m_animator.SetBool("Charge1", false);
         }
         if (slip) return;
         
@@ -162,7 +177,6 @@ public class CharacterControl1 : MonoBehaviour {
 
             //Debug.Log ("movespeed:" + a);
         }
-        m_animator.SetFloat("YSpeed", m_rigid.velocity.y);
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -197,16 +211,20 @@ public class CharacterControl1 : MonoBehaviour {
         }
         teaWater.SetWaterPerc(hp);
         WudiFlag = true;
+        //m_animator.Play("Wudi");
         StartCoroutine(DelayWudi());
     }
 
     void Die()
     {
         dieFlag = true;
+        m_animator.SetBool("Dead1",true);//播放死亡状态的动画
+        Deadbackground1.SetActive(true);//播放死亡背景
     }
 
     IEnumerator DelayWudi()
     {
+        
         yield return new WaitForSeconds(T_unbeatable);
         WudiFlag = false;
     }

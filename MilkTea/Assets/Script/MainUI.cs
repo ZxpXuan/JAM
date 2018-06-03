@@ -1,19 +1,24 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MainUI : MonoBehaviour {
-	[SerializeField]
-	private GameObject SettingPanel;
-	[SerializeField]
-	private GameObject MainPanel;
+    public Canvas Esc;
+    public Canvas death;
 	// Use this for initialization
 	void Start () {
-		ShowMainMenu ();
+        Esc.enabled = false;
+        //death.enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Esc.enabled = true;
+            Time.timeScale = 0;
+        }
 	}
 	public void OnStarBtnDown(){
 		Debug.Log("Click start");
@@ -23,8 +28,9 @@ public class MainUI : MonoBehaviour {
 		Application.Quit ();
 		Debug.Log("Click end");
 	}
-	private void ShowMainMenu(){
-		MainPanel.SetActive (true);
-	}
+    public void Nopress() {
+        Esc.enabled = false;
+        Time.timeScale = 1;
+    }
 
 }
