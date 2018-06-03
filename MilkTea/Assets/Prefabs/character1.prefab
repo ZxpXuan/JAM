@@ -485,7 +485,7 @@ MonoBehaviour:
   horizontal: 0
   vertical: 0
   JumpForce: 15
-  MoveSpeed: 20
+  MoveSpeed: 15
   move: 0
   record: 0
   stillBeginTime: 0

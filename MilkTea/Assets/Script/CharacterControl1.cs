@@ -131,8 +131,8 @@ public class CharacterControl1 : MonoBehaviour {
         if (move != 0)
         {
             ReceiveDamage(walkDamagePerSecond * Time.deltaTime);
-            float hpScale = 1 - hp / 100f + 0.3f;
-            hpScale = hpScale * Define.hpScaleA1;
+            float hpScale = 1 - hp / 100f * Define.hpScaleA1 + 0.3f;
+           // hpScale = hpScale * Define.hpScaleA1;
             move = move * hpScale;
             if (straw.conTime > 0)
             {

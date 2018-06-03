@@ -1164,6 +1164,11 @@ Prefab:
       propertyPath: Deadbackground1
       value: 
       objectReference: {fileID: 262130021}
+    - target: {fileID: 114829929837195600, guid: c1731307e5edfd548bd889af88d5e0b8,
+        type: 2}
+      propertyPath: MoveSpeed
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1731307e5edfd548bd889af88d5e0b8, type: 2}
   m_IsPrefabParent: 0
