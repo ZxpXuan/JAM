@@ -27,8 +27,17 @@ public class Ball : MonoBehaviour {
         GetComponent<Rigidbody2D>().gravityScale = 0.2f;
         Vector2 norForce = new Vector2(angle.x, angle.y).normalized;
         Bullet_Power = conTime / Define.t_max * 100 * Define.longPressA1 * Define.longPressA2;
+        float strength = 0;
+        if (flag)//长按
+        {
+            strength = Define.shortPressStrength;
+        }
+        else
+        {
+            strength = Define.longPressA4;
+        }
 
-        GetComponent<Rigidbody2D>().AddForce(norForce * Bullet_Power, ForceMode2D.Impulse);
+        GetComponent<Rigidbody2D>().AddForce(norForce * strength, ForceMode2D.Impulse);
 
         Destroy(gameObject ,4f);
         powerfulFlag = flag;
@@ -67,20 +76,20 @@ public class Ball : MonoBehaviour {
 
                     float damagenum = conTime / Define.t_max * 100 * Define.longPressA1 * Define.longPressA3;
 
-                    if (damagenum >= curHp)
-                    {
-                        damagenum = curHp - 1;
-                    }
-                    other.transform.GetComponent<CharacterControl1>().ReceiveDamage(damagenum);
+                    //if (damagenum >= curHp)
+                    //{
+                    //    damagenum = curHp - 1;
+                    //}
+                    other.transform.GetComponent<CharacterControl1>().ReceiveDamage(damagenum, true);
                 }
                 else//短按
                 {
                     float damagenum = Define.selfDamagePerAttack * Define.selfDamagePerAttackA2;
-                    if (damagenum >= curHp)
-                    {
-                        damagenum = curHp - 1;
-                    }
-                    other.transform.GetComponent<CharacterControl1>().ReceiveDamage(damagenum);
+                    //if (damagenum >= curHp)
+                    //{
+                    //    damagenum = curHp - 1;
+                    //}
+                    other.transform.GetComponent<CharacterControl1>().ReceiveDamage(damagenum, true);
                 }
             }
             float h_ATKed = transform.position.y - botY;

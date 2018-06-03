@@ -44,17 +44,31 @@ public class Straw2 : Straw1
                 //conTime = Time.time - beginTime;
                 GameObject b = Instantiate<GameObject>(ball) as GameObject;
                 b.transform.position = end.position;
+                float curHp = parent.GetComponent<CharacterControl1>().hp;
 
                 if (conTime < Time_Charge_Enter || parent.GetComponent<CharacterControl1>().hp == 1)//短按
                 {
                     conTime = Define.selfDamagePerAttack * Define.selfDamagePerAttackA1;
-                    b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, false ,transform);
+                    b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, false, transform);
+
+                    float damagenum = Define.selfDamagePerAttack;
+                    if (damagenum >= curHp)
+                    {
+                        damagenum = curHp - 1;
+                    }
+                    parent.GetComponent<CharacterControl1>().ReceiveDamage(damagenum);
                 }
                 else//长按
                 {
                     b.GetComponent<Ball>().Launch(end.transform.position - begin.transform.position, conTime, true, transform);
+                    float damagenum = conTime / Define.t_max * 100 * Define.longPressA1;
+                    if (damagenum >= curHp)
+                    {
+                        damagenum = curHp - 1;
+                    }
+                    parent.GetComponent<CharacterControl1>().ReceiveDamage(damagenum);
                 }
-                parent.GetComponent<CharacterControl1>().ReceiveDamage(Define.selfDamagePerAttack);
+                //parent.GetComponent<CharacterControl1>().ReceiveDamage(Define.selfDamagePerAttack);
                 conTime = 0;
                 attackTime = Time.time;
             }

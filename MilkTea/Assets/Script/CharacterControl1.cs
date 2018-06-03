@@ -144,17 +144,19 @@ public class CharacterControl1 : MonoBehaviour {
                     move = move + Charging_Speed_Cut;
                 }
             }
-            
-            
+
+
         }
 
-       
+
         //Debug.Log("Movespeed" + move);
-        
-        
+
+
         var onGround = ground();
-        m_rigid.velocity = new Vector2(move, m_rigid.velocity.y);
         
+        m_rigid.velocity = new Vector2(move, m_rigid.velocity.y);
+        print("Update-------------" + move+ m_rigid.velocity);
+
 
         if (enemy.position.x > transform.position.x)
         {
@@ -201,10 +203,15 @@ public class CharacterControl1 : MonoBehaviour {
 		//this.enabled = true;
 	}
 
-    public void ReceiveDamage(float damage)
+    public void ReceiveDamage(float damage, bool damageFromBallFlag = false)
     {
         if (WudiFlag) return;
         hp = hp - damage;
+        //print("ReceiveDamage---------------"+ hp);
+        m_animator.SetBool("Hited", true);
+        teaWater.GetComponent<Renderer>().enabled = false;
+        StartCoroutine(DelayHitedFalse());
+
         if (hp <= 0)
         {
             Die();
@@ -217,6 +224,10 @@ public class CharacterControl1 : MonoBehaviour {
 
     void Die()
     {
+        //Destroy(m_rigid);
+        //Destroy(GetComponent<BoxCollider2D>());
+        //m_rigid.Sleep();
+        print("Die--------------------");
         dieFlag = true;
         m_animator.SetBool("Dead1",true);//播放死亡状态的动画
         Deadbackground1.SetActive(true);//播放死亡背景
@@ -227,6 +238,15 @@ public class CharacterControl1 : MonoBehaviour {
         
         yield return new WaitForSeconds(T_unbeatable);
         WudiFlag = false;
+    }
+
+    IEnumerator DelayHitedFalse()
+    {
+
+        yield return new WaitForSeconds(0.1f);
+        m_animator.SetBool("Hited", false);
+        yield return new WaitForSeconds(0.1f);
+        teaWater.GetComponent<Renderer>().enabled = true;
     }
 
     public void KnockDown()

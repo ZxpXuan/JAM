@@ -12,8 +12,13 @@ public class Define {
     public static float longPressA1 = 1f;
     public static float longPressA2 = 0.1f;
     public static float longPressA3 = 0.1f;
+
+    public static float longPressA4 = 1f;//长按系数
     public static float knockDownDamage = 30f;//角色被击倒后，固定损失HP：HP_Fall_Cut
 
 
     public static float strawMaxAngle = 45f;//吸管最大角度
+
+    public static float shortPressStrength = 3f;//短按固定力
+    
 }
